@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <style>
-/* ===== BASE ===== */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -19,64 +18,73 @@ body {
 .container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 60px 20px;
+  padding: 40px 16px;
 }
 
 .cabana {
   background: #ffffff;
-  border-radius: 12px;
-  padding: 40px;
-  margin-bottom: 60px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
 
-h2 {
-  margin-top: 0;
-}
+h2 { margin: 0 0 6px 0; }
 
 .sub {
-  margin-bottom: 20px;
   font-size: 14px;
   color: #666;
+  margin-bottom: 16px;
 }
 
 input {
   width: 100%;
-  padding: 14px;
+  padding: 14px 16px;
+  height: 52px;
   font-size: 16px;
-  border-radius: 8px;
+  line-height: 1;
+  box-sizing: border-box;
+  border-radius: 10px;
   border: 1px solid #ccc;
+
+  /* 🔥 ESSENCIAIS PRA NÃO VAZAR */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .total {
-  margin-top: 16px;
-  font-size: 20px;
+  margin-top: 14px;
+  background: #f3f3f3;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 18px;
   font-weight: 600;
+  text-align: center;
 }
 
 .aviso {
-  margin-top: 6px;
+  margin-top: 8px;
   font-size: 13px;
   color: #e88a7a;
+  text-align: center;
 }
 
 button {
-  margin-top: 24px;
+  margin-top: 18px;
   padding: 14px;
   width: 100%;
   font-size: 16px;
-  border-radius: 8px;
+  border-radius: 10px;
   background: #1f4f5f;
   color: #fff;
   border: none;
   cursor: pointer;
 }
 
-button:hover {
-  background: #163b47;
-}
+button:hover { background: #163b47; }
 
-/* ===== DATAS BLOQUEADAS ===== */
+/* ❌ DATAS BLOQUEADAS */
 .flatpickr-day.flatpickr-disabled {
   background: #f0f0f0 !important;
   color: #999 !important;
@@ -92,6 +100,7 @@ button:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .flatpickr-day.prevMonthDay,
@@ -99,62 +108,18 @@ button:hover {
   visibility: hidden;
 }
 
-/* ================= MOBILE APP-LIKE ================= */
+/* MOBILE FULLSCREEN */
 @media (max-width: 768px) {
-
-  .container {
-    padding: 24px 16px;
-  }
-
-  .cabana {
-    padding: 24px 18px;
-    margin-bottom: 80px;
-  }
-
-  .total {
-    background: #f3f3f3;
-    padding: 14px;
-    border-radius: 10px;
-    text-align: center;
-  }
-
-  .aviso {
-    text-align: center;
-  }
-
-  /* Botão WhatsApp fixo */
-  .cabana button {
-    position: fixed;
-    bottom: 16px;
-    left: 16px;
-    right: 16px;
-    z-index: 5000;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-  }
-
-  /* Overlay do calendário */
   .flatpickr-calendar {
     position: fixed !important;
     inset: 0 !important;
-    margin: auto !important;
     width: 100vw !important;
     height: 100vh !important;
-    max-height: none !important;
     border-radius: 0 !important;
     z-index: 9999 !important;
+    background: #fff;
     display: flex;
     flex-direction: column;
-    background: #fff;
-  }
-
-  /* Header do calendário */
-  .flatpickr-calendar::before {
-    content: "✕ Fechar";
-    padding: 16px;
-    font-size: 18px;
-    text-align: right;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
   }
 
   .flatpickr-innerContainer {
@@ -162,6 +127,22 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .flatpickr-days { max-width: 360px; }
+
+  .flatpickr-day {
+    min-width: 42px;
+    height: 42px;
+    line-height: 42px;
+  }
+
+  .fp-close-btn {
+    padding: 16px;
+    text-align: center;
+    font-size: 18px;
+    border-top: 1px solid #eee;
+    cursor: pointer;
   }
 }
 </style>
@@ -195,46 +176,14 @@ button:hover {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 
 <script>
 const whatsapp = "554999458410";
-
 const inicio = new Date(2026,0,1);
 const fim = new Date(2026,2,31);
 
-const doceSemana = 700;
-const doceFds = 900;
-const valeSemana = 800;
-const valeFds = 950;
-
-function d(y,m,day){ return new Date(y,m-1,day); }
-
-const bloqueadasDoce = [
-  d(2026,1,1),d(2026,1,2),d(2026,1,3),d(2026,1,4),d(2026,1,5),
-  d(2026,1,6),d(2026,1,7),d(2026,1,8),d(2026,1,9),d(2026,1,10),
-  d(2026,1,11),d(2026,1,12),d(2026,1,13),d(2026,1,14),
-  d(2026,1,16),d(2026,1,17),d(2026,1,18),d(2026,1,19),
-  d(2026,1,20),d(2026,1,21),d(2026,1,22),d(2026,1,23),
-  d(2026,1,24),d(2026,1,25),d(2026,1,26),d(2026,1,27),
-  d(2026,1,28),d(2026,1,29),d(2026,1,30),
-  d(2026,2,7),d(2026,2,8),d(2026,2,11),d(2026,2,12),
-  d(2026,2,13),d(2026,2,14),d(2026,2,15),
-  d(2026,2,16),d(2026,2,17),d(2026,2,20),d(2026,2,21),
-  d(2026,3,13),d(2026,3,14)
-];
-
-const bloqueadasVale = [
-  d(2026,1,1),d(2026,1,2),d(2026,1,3),d(2026,1,4),d(2026,1,5),
-  d(2026,1,6),d(2026,1,7),d(2026,1,8),d(2026,1,9),d(2026,1,10),
-  d(2026,1,11),d(2026,1,12),d(2026,1,13),d(2026,1,14),
-  d(2026,1,15),d(2026,1,16),d(2026,1,17),
-  d(2026,1,19),d(2026,1,20),d(2026,1,21),d(2026,1,22),
-  d(2026,1,23),d(2026,1,24),d(2026,1,29),
-  d(2026,2,1),d(2026,2,2),d(2026,2,22),d(2026,2,23),
-  d(2026,3,2)
-];
-
-function isFds(date){ return date.getDay()===5||date.getDay()===6; }
+function isFds(d){ return d.getDay()===5 || d.getDay()===6; }
 
 function calculaTotal(ci,co,ps,pf){
   let t=0,d=new Date(ci),dias=0;
@@ -242,31 +191,89 @@ function calculaTotal(ci,co,ps,pf){
   return {t,dias};
 }
 
+/* 🔒 DATAS LOCADAS (BLOQUEADAS) */
+
+/* Doce Encanto */
+const bloqueadasDoce = [
+  new Date(2026,0,1), new Date(2026,0,2), new Date(2026,0,3),
+  new Date(2026,0,4), new Date(2026,0,5), new Date(2026,0,6),
+  new Date(2026,0,7), new Date(2026,0,8), new Date(2026,0,9),
+  new Date(2026,0,10), new Date(2026,0,11), new Date(2026,0,12),
+  new Date(2026,0,13), new Date(2026,0,14),
+  new Date(2026,0,16), new Date(2026,0,17), new Date(2026,0,18),
+  new Date(2026,0,19), new Date(2026,0,20), new Date(2026,0,21),
+  new Date(2026,0,22), new Date(2026,0,23), new Date(2026,0,24),
+  new Date(2026,0,25), new Date(2026,0,26), new Date(2026,0,27),
+  new Date(2026,0,28), new Date(2026,0,29), new Date(2026,0,30),
+
+  // Fevereiro
+  new Date(2026,1,7), new Date(2026,1,8),
+  new Date(2026,1,11), new Date(2026,1,12), new Date(2026,1,13),
+  new Date(2026,1,14), new Date(2026,1,15), new Date(2026,1,16),
+  new Date(2026,1,17), new Date(2026,1,20), new Date(2026,1,21),
+
+  // Março
+  new Date(2026,2,13), new Date(2026,2,14)
+];
+
+/* Vale das Flores */
+const bloqueadasVale = [
+  new Date(2026,0,1), new Date(2026,0,2), new Date(2026,0,3),
+  new Date(2026,0,4), new Date(2026,0,5), new Date(2026,0,6),
+  new Date(2026,0,7), new Date(2026,0,8), new Date(2026,0,9),
+  new Date(2026,0,10), new Date(2026,0,11), new Date(2026,0,12),
+  new Date(2026,0,13), new Date(2026,0,14), new Date(2026,0,15),
+  new Date(2026,0,16), new Date(2026,0,17),
+  new Date(2026,0,19), new Date(2026,0,20), new Date(2026,0,21),
+  new Date(2026,0,22), new Date(2026,0,23), new Date(2026,0,24),
+  new Date(2026,0,29),
+
+  new Date(2026,1,1), new Date(2026,1,2),
+  new Date(2026,1,22), new Date(2026,1,23),
+
+  new Date(2026,2,2)
+];
+
+function setupPicker(id, bloqueadas, ps, pf, totalEl, setVars){
+  flatpickr(id,{
+    locale: "pt",
+    mode:"range",
+    minDate:inicio,
+    maxDate:fim,
+    disable:bloqueadas,
+
+    onOpen(_,__,fp){
+      if(window.innerWidth<=768 && !fp.calendarContainer.querySelector('.fp-close-btn')){
+        const b=document.createElement('div');
+        b.className='fp-close-btn';
+        b.innerText='✕ Fechar';
+        b.onclick=()=>fp.close();
+        fp.calendarContainer.appendChild(b);
+      }
+    },
+
+    onChange:d=>{
+      if(d.length===2){
+        const r=calculaTotal(d[0],d[1],ps,pf);
+        if(isFds(d[0]) && r.dias<2){
+          alert("Mínimo 2 diárias no fim de semana");
+          return;
+        }
+        setVars(d[0],d[1],r.t);
+        totalEl.innerText=`Total: R$ ${r.t}`;
+      }
+    }
+  });
+}
+
 let checkin1,checkout1,total1=0;
 let checkin2,checkout2,total2=0;
 
-flatpickr("#datas1",{mode:"range",minDate:inicio,maxDate:fim,disable:bloqueadasDoce,
-onChange:d=>{
- if(d.length===2){
-  const r=calculaTotal(d[0],d[1],doceSemana,doceFds);
-  if(isFds(d[0])&&r.dias<2){ alert("Mínimo 2 diárias no fim de semana"); return;}
-  checkin1=d[0]; checkout1=d[1]; total1=r.t;
-  total1Elem.innerText=`Total: R$ ${total1}`;
- }
-}});
+setupPicker("#datas1", bloqueadasDoce, 700, 900, document.getElementById("total1"),
+ (ci,co,t)=>{checkin1=ci;checkout1=co;total1=t});
 
-flatpickr("#datas2",{mode:"range",minDate:inicio,maxDate:fim,disable:bloqueadasVale,
-onChange:d=>{
- if(d.length===2){
-  const r=calculaTotal(d[0],d[1],valeSemana,valeFds);
-  if(isFds(d[0])&&r.dias<2){ alert("Mínimo 2 diárias no fim de semana"); return;}
-  checkin2=d[0]; checkout2=d[1]; total2=r.t;
-  total2Elem.innerText=`Total: R$ ${total2}`;
- }
-}});
-
-const total1Elem=document.getElementById("total1");
-const total2Elem=document.getElementById("total2");
+setupPicker("#datas2", bloqueadasVale, 800, 950, document.getElementById("total2"),
+ (ci,co,t)=>{checkin2=ci;checkout2=co;total2=t});
 
 function reservar(nome,total,ci,co){
  if(!ci||!co){alert("Selecione as datas");return;}
