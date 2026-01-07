@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <style>
+/* ===== BASE ===== */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -29,23 +30,8 @@ body {
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-.cabana-header {
-  display: flex;
-  align-items: baseline;
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.cabana-header .agenda {
-  font-size: 32px;
-  font-weight: 600;
-  letter-spacing: 2px;
-}
-
-.cabana-header .nome {
-  font-size: 36px;
-  font-family: 'Georgia', serif;
-  font-weight: 400;
+h2 {
+  margin-top: 0;
 }
 
 .sub {
@@ -84,14 +70,13 @@ button {
   color: #fff;
   border: none;
   cursor: pointer;
-  transition: all .2s ease;
 }
 
 button:hover {
   background: #163b47;
 }
 
-/* ===== DATAS BLOQUEADAS COM X ===== */
+/* ===== DATAS BLOQUEADAS ===== */
 .flatpickr-day.flatpickr-disabled {
   background: #f0f0f0 !important;
   color: #999 !important;
@@ -114,128 +99,83 @@ button:hover {
   visibility: hidden;
 }
 
+/* ================= MOBILE APP-LIKE ================= */
 @media (max-width: 768px) {
 
-  body {
-    background: #faf7f4;
-  }
-
   .container {
-    padding: 30px 16px;
+    padding: 24px 16px;
   }
 
   .cabana {
     padding: 24px 18px;
-    margin-bottom: 40px;
+    margin-bottom: 80px;
   }
-
-  h2 {
-    font-size: 22px;
-  }
-
-  .cabana-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-  }
-
-  .cabana-header .agenda {
-    font-size: 22px;
-    letter-spacing: 1px;
-  }
-
-  .cabana-header .nome {
-    font-size: 26px;
-  }
-
-  .sub {
-    font-size: 13px;
-  }
-
-  input {
-    font-size: 16px;
-    padding: 14px;
-  }
-
-  .total {
-    font-size: 18px;
-  }
-
-  button {
-    font-size: 17px;
-    padding: 16px;
-    border-radius: 10px;
-  }
-
-  /* Calendário ocupa a tela melhor no mobile */
-  .flatpickr-calendar {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 768px) {
-
-  /* Calendário full screen */
-  .flatpickr-calendar {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    max-height: none !important;
-    border-radius: 0 !important;
-    z-index: 9999 !important;
-    font-size: 16px;
-  }
-
-  .flatpickr-days {
-    height: calc(100vh - 140px);
-  }
-}
-
-@media (max-width: 768px) {
-
-  .cabana button {
-    position: sticky;
-    bottom: 16px;
-    z-index: 100;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  }
-}
-
-@media (max-width: 768px) {
 
   .total {
     background: #f3f3f3;
     padding: 14px;
     border-radius: 10px;
-    margin-top: 16px;
     text-align: center;
   }
 
   .aviso {
     text-align: center;
   }
+
+  /* Botão WhatsApp fixo */
+  .cabana button {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    z-index: 5000;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  }
+
+  /* Overlay do calendário */
+  .flatpickr-calendar {
+    position: fixed !important;
+    inset: 0 !important;
+    margin: auto !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-height: none !important;
+    border-radius: 0 !important;
+    z-index: 9999 !important;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+  }
+
+  /* Header do calendário */
+  .flatpickr-calendar::before {
+    content: "✕ Fechar";
+    padding: 16px;
+    font-size: 18px;
+    text-align: right;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+
+  .flatpickr-innerContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
-
-
 </style>
-
-
 </head>
 
 <body>
+<div class="container">
 
 <div class="cabana">
   <h2>Cabana Doce Encanto</h2>
   <div class="sub">Check-in às 16h • Check-out às 13h</div>
-
   <input id="datas1" placeholder="Selecione as datas">
   <div id="total1" class="total">Total: R$ 0</div>
   <div class="aviso">Fins de semana exigem mínimo de 2 diárias.</div>
-
   <button onclick="reservar('Cabana Doce Encanto', total1, checkin1, checkout1)">
     Reservar no WhatsApp
   </button>
@@ -244,14 +184,14 @@ button:hover {
 <div class="cabana">
   <h2>Cabana Vale das Flores</h2>
   <div class="sub">Check-in às 16h • Check-out às 13h</div>
-
   <input id="datas2" placeholder="Selecione as datas">
   <div id="total2" class="total">Total: R$ 0</div>
   <div class="aviso">Fins de semana exigem mínimo de 2 diárias.</div>
-
   <button onclick="reservar('Cabana Vale das Flores', total2, checkin2, checkout2)">
     Reservar no WhatsApp
   </button>
+</div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -259,157 +199,83 @@ button:hover {
 <script>
 const whatsapp = "554999458410";
 
-/* ===== CONFIGURAÇÃO DE MESES ===== */
-const inicio = new Date(2026, 0, 1); // Janeiro 2026
-const fim = new Date(2026, 2, 31);   // Março 2026
+const inicio = new Date(2026,0,1);
+const fim = new Date(2026,2,31);
 
-/* ===== PREÇOS ===== */
 const doceSemana = 700;
 const doceFds = 900;
-
 const valeSemana = 800;
 const valeFds = 950;
 
-function d(y, m, day) {
-  return new Date(y, m - 1, day);
-}
+function d(y,m,day){ return new Date(y,m-1,day); }
 
-/* ===== DATAS BLOQUEADAS (VOU PREENCHER PRA VOCÊ) ===== */
 const bloqueadasDoce = [
-  d(2026,1,1), d(2026,1,2), d(2026,1,3), d(2026,1,4), d(2026,1,5),
-  d(2026,1,6), d(2026,1,7), d(2026,1,8), d(2026,1,9), d(2026,1,10),
-  d(2026,1,11), d(2026,1,12), d(2026,1,13), d(2026,1,14),
-  d(2026,1,16), d(2026,1,17), d(2026,1,18), d(2026,1,19),
-  d(2026,1,20), d(2026,1,21), d(2026,1,22), d(2026,1,23),
-  d(2026,1,24), d(2026,1,25), d(2026,1,26), d(2026,1,27),
-  d(2026,1,28), d(2026,1,29), d(2026,1,30),
-
- d(2026,2,7), d(2026,2,8),
-d(2026,2,11), d(2026,2,12), d(2026,2,13), d(2026,2,14),
-d(2026,2,15), d(2026,2,16), d(2026,2,17),
-d(2026,2,20), d(2026,2,21),
-
-d(2026,3,13), d(2026,3,14),
+  d(2026,1,1),d(2026,1,2),d(2026,1,3),d(2026,1,4),d(2026,1,5),
+  d(2026,1,6),d(2026,1,7),d(2026,1,8),d(2026,1,9),d(2026,1,10),
+  d(2026,1,11),d(2026,1,12),d(2026,1,13),d(2026,1,14),
+  d(2026,1,16),d(2026,1,17),d(2026,1,18),d(2026,1,19),
+  d(2026,1,20),d(2026,1,21),d(2026,1,22),d(2026,1,23),
+  d(2026,1,24),d(2026,1,25),d(2026,1,26),d(2026,1,27),
+  d(2026,1,28),d(2026,1,29),d(2026,1,30),
+  d(2026,2,7),d(2026,2,8),d(2026,2,11),d(2026,2,12),
+  d(2026,2,13),d(2026,2,14),d(2026,2,15),
+  d(2026,2,16),d(2026,2,17),d(2026,2,20),d(2026,2,21),
+  d(2026,3,13),d(2026,3,14)
 ];
 
 const bloqueadasVale = [
-  d(2026,1,1), d(2026,1,2), d(2026,1,3), d(2026,1,4), d(2026,1,5),
-  d(2026,1,6), d(2026,1,7), d(2026,1,8), d(2026,1,9), d(2026,1,10),
-  d(2026,1,11), d(2026,1,12), d(2026,1,13), d(2026,1,14),
-  d(2026,1,15), d(2026,1,16), d(2026,1,17),
-  d(2026,1,19), d(2026,1,20), d(2026,1,21), d(2026,1,22),
-  d(2026,1,23), d(2026,1,24),
-  d(2026,1,29),
-
-d(2026,2,1), d(2026,2,2),
-d(2026,2,22), d(2026,2,23),
-
-d(2026,3,2),
+  d(2026,1,1),d(2026,1,2),d(2026,1,3),d(2026,1,4),d(2026,1,5),
+  d(2026,1,6),d(2026,1,7),d(2026,1,8),d(2026,1,9),d(2026,1,10),
+  d(2026,1,11),d(2026,1,12),d(2026,1,13),d(2026,1,14),
+  d(2026,1,15),d(2026,1,16),d(2026,1,17),
+  d(2026,1,19),d(2026,1,20),d(2026,1,21),d(2026,1,22),
+  d(2026,1,23),d(2026,1,24),d(2026,1,29),
+  d(2026,2,1),d(2026,2,2),d(2026,2,22),d(2026,2,23),
+  d(2026,3,2)
 ];
 
+function isFds(date){ return date.getDay()===5||date.getDay()===6; }
 
-/* ===== VARIÁVEIS ===== */
-let checkin1, checkout1, total1 = 0;
-let checkin2, checkout2, total2 = 0;
-
-/* ===== FUNÇÕES ===== */
-function isFds(date) {
-  const d = date.getDay();
-  return d === 5 || d === 6;
+function calculaTotal(ci,co,ps,pf){
+  let t=0,d=new Date(ci),dias=0;
+  while(d<co){ t+=isFds(d)?pf:ps; dias++; d.setDate(d.getDate()+1); }
+  return {t,dias};
 }
 
-function calculaTotal(checkin, checkout, precoSemana, precoFds) {
-  let total = 0;
-  let dias = 0;
-  let d = new Date(checkin);
+let checkin1,checkout1,total1=0;
+let checkin2,checkout2,total2=0;
 
-  while (d < checkout) {
-    total += isFds(d) ? precoFds : precoSemana;
-    dias++;
-    d.setDate(d.getDate() + 1);
-  }
+flatpickr("#datas1",{mode:"range",minDate:inicio,maxDate:fim,disable:bloqueadasDoce,
+onChange:d=>{
+ if(d.length===2){
+  const r=calculaTotal(d[0],d[1],doceSemana,doceFds);
+  if(isFds(d[0])&&r.dias<2){ alert("Mínimo 2 diárias no fim de semana"); return;}
+  checkin1=d[0]; checkout1=d[1]; total1=r.t;
+  total1Elem.innerText=`Total: R$ ${total1}`;
+ }
+}});
 
-  return { total, dias };
-}
+flatpickr("#datas2",{mode:"range",minDate:inicio,maxDate:fim,disable:bloqueadasVale,
+onChange:d=>{
+ if(d.length===2){
+  const r=calculaTotal(d[0],d[1],valeSemana,valeFds);
+  if(isFds(d[0])&&r.dias<2){ alert("Mínimo 2 diárias no fim de semana"); return;}
+  checkin2=d[0]; checkout2=d[1]; total2=r.t;
+  total2Elem.innerText=`Total: R$ ${total2}`;
+ }
+}});
 
-function validaFimDeSemana(checkin, dias) {
-  if (isFds(checkin) && dias < 2) {
-    alert("Sexta e sábado exigem mínimo de 2 diárias.");
-    return false;
-  }
-  return true;
-}
+const total1Elem=document.getElementById("total1");
+const total2Elem=document.getElementById("total2");
 
-/* ===== CABANA DOCE ENCANTO ===== */
-flatpickr("#datas1", {
-  mode: "range",
-  dateFormat: "d/m/Y",
-  minDate: inicio,
-  maxDate: fim,
-  disable: bloqueadasDoce,
-  onChange: d => {
-    if (d.length === 2) {
-      const r = calculaTotal(d[0], d[1], doceSemana, doceFds);
-
-      if (!validaFimDeSemana(d[0], r.dias)) {
-        document.getElementById("datas1")._flatpickr.clear();
-        document.getElementById("total1").innerText = "Total: R$ 0";
-        return;
-      }
-
-      checkin1 = d[0];
-      checkout1 = d[1];
-      total1 = r.total;
-      document.getElementById("total1").innerText = `Total: R$ ${total1}`;
-    }
-  }
-});
-
-/* ===== CABANA VALE DAS FLORES ===== */
-flatpickr("#datas2", {
-  mode: "range",
-  dateFormat: "d/m/Y",
-  minDate: inicio,
-  maxDate: fim,
-  disable: bloqueadasVale,
-  onChange: d => {
-    if (d.length === 2) {
-      const r = calculaTotal(d[0], d[1], valeSemana, valeFds);
-
-      if (!validaFimDeSemana(d[0], r.dias)) {
-        document.getElementById("datas2")._flatpickr.clear();
-        document.getElementById("total2").innerText = "Total: R$ 0";
-        return;
-      }
-
-      checkin2 = d[0];
-      checkout2 = d[1];
-      total2 = r.total;
-      document.getElementById("total2").innerText = `Total: R$ ${total2}`;
-    }
-  }
-});
-
-/* ===== WHATSAPP ===== */
-function reservar(nome, total, checkin, checkout) {
-  if (!checkin || !checkout) {
-    alert("Selecione as datas corretamente.");
-    return;
-  }
-
-  const msg = `Olá! Quero reservar a ${nome}
-
-Check-in: ${checkin.toLocaleDateString()}
-Check-out: ${checkout.toLocaleDateString()}
+function reservar(nome,total,ci,co){
+ if(!ci||!co){alert("Selecione as datas");return;}
+ const msg=`Olá! Quero reservar a ${nome}
+Check-in: ${ci.toLocaleDateString()}
+Check-out: ${co.toLocaleDateString()}
 Total: R$ ${total}`;
-
-  window.open(
-    `https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`,
-    "_blank"
-  );
+ window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`,"_blank");
 }
 </script>
-
-
 </body>
 </html>
